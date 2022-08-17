@@ -181,6 +181,7 @@ class renderer extends \plugin_renderer_base {
                 ['edit', 'improvise'],
                 ['bars', 'jump'],
                 ['forward', 'next'],
+                ['random', 'random'],
                 ['close', 'end'],
                 ['expand', 'fullscreen'],
                 ['window-close', 'quit'],

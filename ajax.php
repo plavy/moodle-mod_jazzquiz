@@ -173,6 +173,18 @@ function start_question(jazzquiz_session $session) {
             $questionid = $jazzquizquestion->question->id;
             $questiontime = $jazzquizquestion->data->questiontime;
             break;
+        case 'random':
+            $slots = $session->get_unasked_slots();
+            if (count($slots) > 0) {
+                $session->data->slot = $slots[array_rand($slots)];
+            } else {
+                $lastslot = count($session->jazzquiz->questions);
+                $session->data->slot = random_int(1, $lastslot);
+            }
+            $jazzquizquestion = $session->jazzquiz->questions[$session->data->slot];
+            $questionid = $jazzquizquestion->question->id;
+            $questiontime = $jazzquizquestion->data->questiontime;
+            break;
         default:
             return [
                 'status' => 'error',

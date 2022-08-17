@@ -397,8 +397,23 @@
     background: #eee;
 }
 
+#report_overview_controls {
+    position: relative;
+}
+
 #report_overview_controls a {
     margin-left: 32px;
+}
+
+#report_overview_controls a:last-child {
+    position: absolute;
+    right: 32px;
+    margin-top: 4px;
+    color: #ff5555;
+}
+
+#report_overview_controls a:last-child:hover {
+    color: #cc3333;
 }
 
 #report_overview_responded table tr {

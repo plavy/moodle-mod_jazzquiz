@@ -59,6 +59,27 @@ class jazzquiz_session {
         ], '*', MUST_EXIST);
     }
 
+    /**
+     * Get array of unasked slots.
+     * @return int[] question slots.
+     */
+    public function get_unasked_slots() : array {
+        $slots = [];
+        foreach ($this->jazzquiz->questions as $question) {
+            $asked = false;
+            foreach ($this->questions as $sessionquestion) {
+                if ($sessionquestion->questionid == $question->data->questionid) {
+                    $asked = true;
+                    break;
+                }
+            }
+            if (!$asked) {
+                $slots[] = $question->data->slot;
+            }
+        }
+        return $slots;
+    }
+
     private function requires_anonymous_answers() {
         return $this->data->anonymity != 3;
     }

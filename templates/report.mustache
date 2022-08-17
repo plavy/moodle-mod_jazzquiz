@@ -19,6 +19,9 @@
             <a href="reports.php?id={{ cmid }}&quizid={{ quizid }}&sessionid={{ id }}&action=export&what=report&download=yes">
                 {{# str }} download_report, jazzquiz {{/str}}
             </a>
+            <a href="reports.php?id={{ cmid }}&quizid={{ quizid }}&sessionid={{ id }}&action=delete">
+                {{# str }} delete_report, jazzquiz {{/str}}
+            </a>
         </div>
         <div id="report_overview_responses" class="jazzquiz-response-container hidden">
             {{# slots }}

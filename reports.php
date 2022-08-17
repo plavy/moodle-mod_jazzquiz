@@ -40,12 +40,12 @@ require_login();
 /**
  * @param jazzquiz $jazzquiz
  * @param \moodle_url $url
+ * @param int $sessionid
  * @throws \coding_exception
  * @throws \dml_exception
  * @throws \moodle_exception
  */
-function jazzquiz_view_session_report(jazzquiz $jazzquiz, \moodle_url $url) {
-    $sessionid = optional_param('sessionid', 0, PARAM_INT);
+function jazzquiz_view_session_report(jazzquiz $jazzquiz, \moodle_url $url, int $sessionid) {
     if ($sessionid === 0) {
         // If no session id is specified, we try to load the first one.
         global $DB;
@@ -96,6 +96,12 @@ function jazzquiz_export_session_report(jazzquiz $jazzquiz) {
     }
 }
 
+function jazzquiz_delete_session_report(int $sessionid) {
+    if ($sessionid !== 0) {
+        jazzquiz_session::delete($sessionid);
+    }
+}
+
 /**
  * Entry point for viewing reports.
  */
@@ -130,15 +136,20 @@ function jazzquiz_reports() {
     if (!$isdownload) {
         $jazzquiz->renderer->header($jazzquiz, 'reports');
     }
+	$sessionid = optional_param('sessionid', 0, PARAM_INT);
     switch ($action) {
         case 'view':
-            jazzquiz_view_session_report($jazzquiz, $url);
+            jazzquiz_view_session_report($jazzquiz, $url, $sessionid);
             break;
         case 'export':
             jazzquiz_export_session_report($jazzquiz);
             break;
+        case 'delete':
+            jazzquiz_delete_session_report($sessionid);
+            jazzquiz_view_session_report($jazzquiz, $url, 0);
+            break;
         default:
-            jazzquiz_view_session_report($jazzquiz, $url);
+            jazzquiz_view_session_report($jazzquiz, $url, $sessionid);
             break;
     }
     if (!$isdownload) {

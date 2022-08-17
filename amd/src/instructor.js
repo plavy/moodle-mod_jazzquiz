@@ -516,6 +516,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                 'improvise': () => this.showQuestionListSetup('improvise'),
                 'jump': () => this.showQuestionListSetup('jump'),
                 'next': () => this.nextQuestion(),
+                'random': () => this.randomQuestion(),
                 'end': () => this.endQuestion(),
                 'fullscreen': () => Instructor.showFullscreenView(),
                 'answer': () => this.showCorrectAnswer(),
@@ -534,6 +535,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                 'i': 'improvise',
                 'v': 'vote',
                 'n': 'next',
+                'm': 'random',
                 'f': 'fullscreen'
             });
         }
@@ -630,7 +632,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
         onPreparing(data) {
             Quiz.hide(Instructor.side);
             setText(Quiz.info, 'instructions_for_instructor');
-            let enabledButtons = ['improvise', 'jump', 'fullscreen', 'quit'];
+            let enabledButtons = ['improvise', 'jump', 'random', 'fullscreen', 'quit'];
             if (data.slot < this.totalQuestions) {
                 enabledButtons.push('next');
             }
@@ -662,7 +664,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
 
         onReviewing(data) {
             Quiz.show(Instructor.side);
-            let enabledButtons = ['answer', 'repoll', 'fullscreen', 'improvise', 'jump', 'quit'];
+            let enabledButtons = ['answer', 'repoll', 'fullscreen', 'improvise', 'jump', 'random', 'quit'];
             if (this.allowVote) {
                 enabledButtons.push('vote');
             }
@@ -852,6 +854,13 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
          */
         nextQuestion() {
             this.startQuestion('next', 0, 0, 0);
+        }
+
+        /**
+         * Start a random question.
+         */
+        randomQuestion() {
+            this.startQuestion('random', 0, 0, 0);
         }
 
         /**

@@ -147,6 +147,7 @@ $string['vote'] = 'Vote';
 $string['improvise'] = 'Improvise';
 $string['jump'] = 'Jump';
 $string['next'] = 'Next';
+$string['random'] = 'Random';
 $string['end'] = 'End';
 $string['fullscreen'] = 'Fullscreen';
 $string['quit'] = 'Quit';
@@ -167,6 +168,7 @@ $string['download_report'] = 'Download report';
 $string['download_attendance_list'] = 'Download attendance list';
 $string['download_responses'] = 'Download responses';
 $string['no_sessions_exist'] = 'No sessions exist yet.';
+$string['delete_report'] = 'Delete report';
 
 // Instructions.
 $string['instructions_for_student'] = '<p>Please wait for the instructor to start the quiz.</p>';
@@ -226,6 +228,15 @@ $string['instructions_for_instructor'] = '
             <td>n</td>
             <td>
                 Continue on to the next question in the list of planned questions.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa fa-random"></i> Random
+            </td>
+            <td>m</td>
+            <td>
+                Starts a random question from the list of planned questions.
             </td>
         </tr>
         <tr>
