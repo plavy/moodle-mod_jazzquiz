@@ -157,12 +157,12 @@ class exporter {
         foreach ($attendances as $attendance) {
             $idnumber = $attendance['idnumber'];
             $userFirstLastName = explode(', ', $attendance['name']);
-            if(sizeof($userFirstLastName)){
+            if(count($userFirstLastName) >= 2){
                 $lastName = $userFirstLastName[0];
                 $firstName = $userFirstLastName[1];
             } else {
                 $lastName = $userFirstLastName[0];
-                $firstName = $userFirstLastName[0]; //for anonymous, but it doesn't even make sense since if it's anon, not name should display
+                $firstName = $userFirstLastName[0]; //for anonymous, but it doesn't even make sense since if it's anon, no name should display
             }
             $count = $attendance['count'];
             echo "$idnumber\t$lastName\t$firstName\t$count\r\n";

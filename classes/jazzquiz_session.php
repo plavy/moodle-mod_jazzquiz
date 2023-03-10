@@ -144,7 +144,7 @@ class jazzquiz_session {
     }
 
     public function user_name_for_attendance($userid) {
-        global $DB, $USER;
+        global $DB;
         if ($this->requires_anonymous_attendance() || is_null($userid)) {
             return get_string('anonymous', 'jazzquiz');
         }
@@ -156,8 +156,8 @@ class jazzquiz_session {
         return $userFirstLastName;
     }
 
-    public function user_idNumber_for_attendance($userid) {
-        global $DB, $USER;
+    public function user_idnumber_for_attendance($userid) {
+        global $DB;
         if ($this->requires_anonymous_attendance() || is_null($userid)) {
             return get_string('anonymous', 'jazzquiz');
         }
@@ -489,7 +489,7 @@ class jazzquiz_session {
         $records = $DB->get_records('jazzquiz_attendance', ['sessionid' => $this->data->id]);
         foreach ($records as $record) {
             $attendances[] = [
-                'idnumber' => $this->user_idNumber_for_attendance($record->userid),
+                'idnumber' => $this->user_idnumber_for_attendance($record->userid),
                 'name' => $this->user_name_for_attendance($record->userid),
                 'count' => $record->numresponses
             ];
