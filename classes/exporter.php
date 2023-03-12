@@ -157,7 +157,7 @@ class exporter {
         foreach ($attendances as $attendance) {
             $idnumber = $attendance['idnumber'];
             $userFirstLastName = explode(', ', $attendance['name']);
-            if(count($userFirstLastName) >= 2){
+            if (count($userFirstLastName) >= 2) {
                 $lastName = $userFirstLastName[0];
                 $firstName = $userFirstLastName[1];
             } else {
