@@ -179,8 +179,10 @@ function jazzquiz_view() {
     // Checks capability if the session doesn't allow for guests.
     if (!$session || $session->data->allowguests != 1) {
         try {
+            // Throws exception if capabilities are not satisfied.
             require_capability('mod/jazzquiz:attempt', $jazzquiz->context);
         } catch (Exception $e) {
+            // Indicates that the guest user is not allowed to access this session.
             $isCapable = false;
         }
     }
@@ -211,15 +213,6 @@ function jazzquiz_view() {
     } else {
         // Shows "guests_not_allowed" if capability is false and 
         // session doesn't allow for guests to attend.
-        global $PAGE;
-        $studentstartform = new forms\view\student_start_form($PAGE->url);
-        $data = $studentstartform->get_data();
-        if ($data) {
-            $quizstarturl = clone($PAGE->url);
-            $quizstarturl->param('action', 'quizstart');
-            redirect($quizstarturl, null, 0);
-        }
-        
         /** @var output\renderer $renderer */
         $renderer = $jazzquiz->renderer;
         $renderer->header($jazzquiz, 'view');
