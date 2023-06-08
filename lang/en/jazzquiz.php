@@ -139,6 +139,7 @@ $string['error_with_request'] = 'There was an error with the request.';
 $string['x_seconds_left'] = '{$a}s left';
 $string['error_saving_vote'] = 'There was an error saving your vote.';
 $string['you_already_voted'] = 'Sorry, but you have already voted.';
+$string['no_guests'] = 'This quiz does not allow guests to participate.';
 
 // Instructor Controls.
 $string['startquiz'] = 'Start quiz';
