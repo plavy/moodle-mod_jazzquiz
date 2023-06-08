@@ -175,11 +175,28 @@ function jazzquiz_view() {
     $jazzquiz = new jazzquiz($cmid);
     $session = $jazzquiz->load_open_session();
     $isCapable = true;
-
-    // Checks capability if the session doesn't allow for guests.
+ 
+    /*
+     * Checks capability if the session doesn't allow for guests.
+     * If this if-condition is not present, it will not be possible to 
+     * determine whether a guest is allowed to access the session regardless
+     * of whether or not the session allows for guests. 
+     * 
+     * If the session does allow guests, it will not be necessary to perform
+     * the require_capability check, but if the session does not allow guests, 
+     * the require_capability check will determine whether the user is a guest
+     * or not, which will be used to determine whether the user should be granted
+     * access or not.
+     */
     if (!$session || $session->data->allowguests != 1) {
         try {
-            // Throws exception if capabilities are not satisfied.
+            /*
+             * Throws exception if capabilities are not satisfied. Meaning
+             * that the user has a guest status rather than student status
+             * or higher in the role hierarchy. If an exception is not thrown,
+             * it indicates that the user has the required role to attend the
+             * session.
+             */
             require_capability('mod/jazzquiz:attempt', $jazzquiz->context);
         } catch (Exception $e) {
             // Indicates that the guest user is not allowed to access this session.
@@ -211,8 +228,14 @@ function jazzquiz_view() {
             jazzquiz_view_default($jazzquiz);
         }
     } else {
-        // Shows "guests_not_allowed" if capability is false and 
-        // session doesn't allow for guests to attend.
+        /*
+         * Shows "guests_not_allowed" if capability is false and
+         * session doesn't allow for guests to attend. 
+         * 
+         * This is triggered when the session does not allow for guests
+         * to attend, and the user trying to attend is a guest.
+         */
+
         /** @var output\renderer $renderer */
         $renderer = $jazzquiz->renderer;
         $renderer->header($jazzquiz, 'view');
