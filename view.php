@@ -177,25 +177,19 @@ function jazzquiz_view() {
     $isCapable = true;
  
     /*
-     * Checks capability if the session doesn't allow for guests.
-     * If this if-condition is not present, it will not be possible to 
-     * determine whether a guest is allowed to access the session regardless
-     * of whether or not the session allows for guests. 
-     * 
-     * If the session does allow guests, it will not be necessary to perform
-     * the require_capability check, but if the session does not allow guests, 
-     * the require_capability check will determine whether the user is a guest
-     * or not, which will be used to determine whether the user should be granted
+     * Checks that the user is authorised for he quiz.
      * access or not.
+     * The require_capability() method checks this for students
+     * and teacher, but it cannot handle the case where guest
+     * access is allowed.  Hence, if guests are allowed, no
+     * further check is made.
      */
     if (!$session || $session->data->allowguests != 1) {
         try {
             /*
-             * Throws exception if capabilities are not satisfied. Meaning
-             * that the user has a guest status rather than student status
-             * or higher in the role hierarchy. If an exception is not thrown,
-             * it indicates that the user has the required role to attend the
-             * session.
+             * require_capability() throws an exception if the user does not
+             * have the required capabilities.  Usually this means that the student
+             * or teacher is not enrolled on the course.
              */
             require_capability('mod/jazzquiz:attempt', $jazzquiz->context);
         } catch (Exception $e) {
