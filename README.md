@@ -22,7 +22,7 @@ The repolls are treated as separate questions, and you will get a correct order 
 ## Documentation
 
 
-Documentation is available on
+Documentation is available as
 [github pages](https://kqmath.github.io/) at
 [https://kqmath.github.io/docs/jazzquiz/](https://kqmath.github.io/docs/jazzquiz/)
 
