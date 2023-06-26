@@ -45,8 +45,7 @@ class jazzquiz_question_bank_view extends \core_question\local\bank\view {
 
     /**
      * Define the columns we want to be displayed on the question bank
-     * @return array core_question\local\bank\view::$requiredcolumns which are to
-     *  be displayed.
+     * @return array
      */
     protected function wanted_columns(): array {
         // Full class names for question bank columns.
@@ -65,8 +64,8 @@ class jazzquiz_question_bank_view extends \core_question\local\bank\view {
 
     /**
      * Shows the question bank editing interface.
-     * @param string $tabname question bank edit tab name
-     * @param array $pagevars list of page variables
+     * @param string $tabname
+     * @param array $pagevars
      * @throws \coding_exception
      */
     public function display($pagevars, $tabname): void {
