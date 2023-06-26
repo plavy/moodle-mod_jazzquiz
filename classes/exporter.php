@@ -158,8 +158,8 @@ class exporter {
             $idnumber = $attendance['idnumber'];
             $userFirstLastName = explode(', ', $attendance['name']);
             if (count($userFirstLastName) >= 2) {
-                $lastName = $userFirstLastName[0];
-                $firstName = $userFirstLastName[1];
+                $lastName = $userFirstLastName[1];
+                $firstName = $userFirstLastName[0];
             } else {
                 $lastName = $userFirstLastName[0];
                 $firstName = $userFirstLastName[0]; //for anonymous, but it doesn't even make sense since if it's anon, no name should display

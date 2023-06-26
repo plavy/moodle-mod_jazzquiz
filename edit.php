@@ -163,7 +163,7 @@ function jazzquiz_edit() {
         $pagevars) = question_edit_setup('editq', '/mod/jazzquiz/edit.php', true);
 
     $jazzquiz = new jazzquiz($cmid);
-    $renderer = $jazzquiz->renderer;
+    $renderer = $jazzquiz->renderer; // Todo: Flytt ned til hvor variabelen blir brukt
 
     $modulename = get_string('modulename', 'jazzquiz');
     $quizname = format_string($jazzquiz->data->name, true);
@@ -182,6 +182,7 @@ function jazzquiz_edit() {
 
     // Process moving, deleting and unhiding questions...
     $questionbank = new \core_question\local\bank\view($contexts, $url, $COURSE, $cm);
+    
 
     switch ($action) {
         case 'order':
