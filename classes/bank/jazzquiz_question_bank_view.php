@@ -54,8 +54,28 @@ class jazzquiz_question_bank_view extends \core_question\local\bank\view {
             'core_question\\local\\bank\\checkbox_column',
             'qbank_viewquestiontype\\question_type_column',
             'qbank_viewquestionname\\viewquestionname_column_helper',
-            'qbank_previewquestion\\preview_action_column'
+            'qbank_previewquestion\\preview_action_column',
         ];
+
+        // Needs to check qbshowtext parameter manually from baseurl in order
+        // to determine whether to display the question text row below questions
+        $queryparams = explode(';', $this->baseurl);
+        
+        foreach ($queryparams as $value) {
+            $value = str_replace('&', '', $value);
+            $value = str_replace('amp', '', $value);
+            $param = explode('=', $value);
+
+            if ($param[0] == 'qbshowtext') {
+                if ((int)$param[1] != 0) {
+                    array_push($columns, 'qbank_viewquestiontext\\question_text_row');
+                }
+                break;
+            }
+        } 
+
+
+
         foreach ($columns as $column) {
             $this->requiredcolumns[$column] = new $column($this);
         }

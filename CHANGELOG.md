@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 - 
 
+## [1.2.2] - 2023-07-28
+
+- Added column in qbank view for displaying question text/media
+
 ## [1.2.1] - 2023-06-26
 
 - Swapped the order of firstname and lastname in csv export of attendance list
