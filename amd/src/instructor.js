@@ -810,6 +810,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
         runVoting() {
             const options = Instructor.getSelectedAnswersForVote();
             const data = {questions: encodeURIComponent(JSON.stringify(options))};
+            // eslint-disable-next-line no-return-assign
             Ajax.post('run_voting', data, () => {});
         }
 

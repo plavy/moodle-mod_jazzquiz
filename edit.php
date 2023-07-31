@@ -58,7 +58,7 @@ function jazzquiz_session_open($jazzquizid) {
  * @throws \coding_exception
  */
 function get_qbank_view(
-    \core_question\local\bank\question_edit_contexts $contexts, 
+    \core_question\local\bank\question_edit_contexts $contexts,
     jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
 
     $qperpage = optional_param('qperpage', 10, PARAM_INT);
@@ -142,7 +142,7 @@ function jazzquiz_edit_edit_question(jazzquiz $jazzquiz) {
 function jazzquiz_edit_qlist(
     jazzquiz $jazzquiz, \core_question\local\bank\question_edit_contexts $contexts,
     \moodle_url $url, array $pagevars) {
-        
+ 
     $jazzquiz->renderer->header($jazzquiz, 'edit');
     list_questions($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->footer();
