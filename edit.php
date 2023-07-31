@@ -57,7 +57,10 @@ function jazzquiz_session_open($jazzquizid) {
  * @return string
  * @throws \coding_exception
  */
-function get_qbank_view(\core_question\local\bank\question_edit_contexts $contexts, jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+function get_qbank_view(
+    \core_question\local\bank\question_edit_contexts $contexts, 
+    jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+
     $qperpage = optional_param('qperpage', 10, PARAM_INT);
     $qpage = optional_param('qpage', 0, PARAM_INT);
     $newpagevars = [
@@ -86,8 +89,8 @@ function get_qbank_view(\core_question\local\bank\question_edit_contexts $contex
  */
 function list_questions(
     \core_question\local\bank\question_edit_contexts $contexts,
-    jazzquiz $jazzquiz, \moodle_url $url, array $pagevars)
-{
+    jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+
     $qbankview = get_qbank_view($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->list_questions($jazzquiz, $jazzquiz->questions, $qbankview, $url);
 }
@@ -138,8 +141,8 @@ function jazzquiz_edit_edit_question(jazzquiz $jazzquiz) {
  */
 function jazzquiz_edit_qlist(
     jazzquiz $jazzquiz, \core_question\local\bank\question_edit_contexts $contexts,
-    \moodle_url $url, array $pagevars)
-{
+    \moodle_url $url, array $pagevars) {
+        
     $jazzquiz->renderer->header($jazzquiz, 'edit');
     list_questions($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->footer();

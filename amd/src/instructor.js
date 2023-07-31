@@ -871,7 +871,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             Quiz.hide(Question.box);
             Quiz.hide(Instructor.controls);
             setText(Quiz.info, 'closing_session');
-            // eslint-disable-next-line no-restricted-globals
+            // eslint-disable-next-line no-return-assign
             Ajax.post('close_session', {}, () => window.location = location.href.split('&')[0]);
         }
 
