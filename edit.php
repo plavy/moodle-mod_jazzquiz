@@ -142,7 +142,7 @@ function jazzquiz_edit_edit_question(jazzquiz $jazzquiz) {
 function jazzquiz_edit_qlist(
     jazzquiz $jazzquiz, \core_question\local\bank\question_edit_contexts $contexts,
     \moodle_url $url, array $pagevars) {
- 
+
     $jazzquiz->renderer->header($jazzquiz, 'edit');
     list_questions($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->footer();
