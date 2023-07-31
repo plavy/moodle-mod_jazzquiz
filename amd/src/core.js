@@ -14,14 +14,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_jazzquiz
+ * @module    mod_jazzquiz
  * @author    Sebastian S. Gundersen <sebastsg@stud.ntnu.no>
  * @copyright 2014 University of Wisconsin - Madison
  * @copyright 2018 NTNU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function ($, mConfig, mString, Y, mEvent) {
+define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function($, mConfig, mString, Y, mEvent) {
 
     // Contains the needed values for using the ajax script.
     let session = {
@@ -56,10 +56,7 @@ define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function
                 url: url,
                 data: data,
                 dataType: 'json',
-                success: success,
-                error: function (xhr, status, error) {
-                    //console.error('XHR Error: ' + error + '. Status: ' + status);
-                }
+                success: success
             }).fail(() => setText(Quiz.info, 'error_with_request'));
         }
 
@@ -126,6 +123,7 @@ define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function
                     return;
                 }
                 Quiz.show(Question.box.html(data.html));
+                // eslint-disable-next-line no-eval
                 eval(data.js);
                 data.css.forEach(cssUrl => {
                     let head = document.getElementsByTagName('head')[0];
@@ -265,7 +263,7 @@ define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function
         changeQuizState(state, data) {
             this.isNewState = (this.state !== state);
             this.state = state;
-            this.role.onStateChange(state);
+            this.role.onStateChange();
             const event = this.events[state];
             this.role[event](data);
         }
@@ -342,7 +340,7 @@ define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function
         static renderMaximaEquation(input, targetId) {
             const target = document.getElementById(targetId);
             if (target === null) {
-                //console.error('Target element #' + targetId + ' not found.');
+                // Log error to console: 'Target element #' + targetId + ' not found.'.
                 return;
             }
             if (cache[input] !== undefined) {
@@ -359,10 +357,10 @@ define(['jquery', 'core/config', 'core/str', 'core/yui', 'core/event'], function
 
     /**
      * Retrieve a language string that was sent along with the page.
-     * @param $element
+     * @param {*} $element
      * @param {string} key Which string in the language file we want.
      * @param {string} [from=jazzquiz] Which language file we want the string from. Default is jazzquiz.
-     * @param [args] This is {$a} in the string for the key.
+     * @param {array} args This is {$a} in the string for the key.
      */
     function setText($element, key, from, args) {
         from = (from !== undefined) ? from : 'jazzquiz';

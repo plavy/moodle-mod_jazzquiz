@@ -14,14 +14,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_jazzquiz
+ * @module    mod_jazzquiz
  * @author    Sebastian S. Gundersen <sebastsg@stud.ntnu.no>
  * @copyright 2014 University of Wisconsin - Madison
  * @copyright 2018 NTNU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
+define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
 
     const Quiz = Jazz.Quiz;
     const Question = Jazz.Question;
@@ -47,11 +47,11 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             });
         }
 
-        onNotRunning(data) {
+        onNotRunning() {
             setText(Quiz.info, 'instructions_for_student');
         }
 
-        onPreparing(data) {
+        onPreparing() {
             setText(Quiz.info, 'wait_for_instructor');
         }
 
@@ -65,7 +65,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             }
         }
 
-        onReviewing(data) {
+        onReviewing() {
             this.quiz.question.isVoteRunning = false;
             this.quiz.question.isRunning = false;
             this.quiz.question.hideTimer();
@@ -73,7 +73,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             setText(Quiz.info, 'wait_for_instructor');
         }
 
-        onSessionClosed(data) {
+        onSessionClosed() {
             window.location = location.href.split('&')[0];
         }
 
@@ -93,7 +93,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             this.quiz.question.isVoteRunning = true;
         }
 
-        onStateChange(state) {
+        onStateChange() {
 
         }
 
@@ -104,7 +104,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
         onTimerTick(timeLeft) {
             setText(Question.timer, 'question_will_end_in_x_seconds', 'jazzquiz', timeLeft);
         }
-
+        // eslint-disable-next-line no-unused-vars
         onQuestionRefreshed(data) {
 
         }
@@ -118,7 +118,9 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                 return;
             }
             this.quiz.question.isSaving = true;
+            // eslint-disable-next-line no-undef
             if (typeof tinyMCE !== 'undefined') {
+                // eslint-disable-next-line no-undef
                 tinyMCE.triggerSave();
             }
             const serialized = Question.form.serializeArray();
@@ -165,6 +167,6 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             let quiz = new Quiz(Student);
             quiz.poll(2000);
         }
-    }
+    };
 
 });

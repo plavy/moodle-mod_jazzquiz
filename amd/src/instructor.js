@@ -14,14 +14,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_jazzquiz
+ * @module    mod_jazzquiz
  * @author    Sebastian S. Gundersen <sebastsg@stud.ntnu.no>
  * @copyright 2014 University of Wisconsin - Madison
  * @copyright 2018 NTNU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
+define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
 
     const Quiz = Jazz.Quiz;
     const Question = Jazz.Question;
@@ -140,7 +140,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             }
             $row.addClass('merge-from');
             let $table = $row.parent().parent();
-            $table.find('tr').each(function () {
+            $table.find('tr').each(function() {
                 const $cells = $(this).find('td');
                 if ($cells[1].id !== $barCell.attr('id')) {
                     $(this).addClass('merge-into');
@@ -233,7 +233,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
 
             // Add rows.
             for (let i = 0; i < responses.length; i++) {
-                //const percent = (parseInt(responses[i].count) / total) * 100;
+                // Const percent = (parseInt(responses[i].count) / total) * 100;
                 const percent = (parseInt(responses[i].count) / highestResponseCount) * 100;
 
                 // Check if row with same response already exists.
@@ -262,7 +262,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
 
                     const countHtml = '<span id="' + name + '_count_' + rowIndex + '">' + responses[i].count + '</span>';
                     let responseCell = row.insertCell(0);
-                    responseCell.onclick = function () {
+                    responseCell.onclick = function() {
                         $(this).parent().toggleClass('selected-vote-option');
                     };
 
@@ -299,7 +299,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                     }
                 }
             }
-        };
+        }
 
         /**
          * Sort the responses in the graph by how many had the same response.
@@ -440,7 +440,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
         }
 
         /**
-         * refresh() equivalent for votes.
+         * Method refresh() equivalent for votes.
          */
         refreshVotes() {
             // Should we show the results?
@@ -687,7 +687,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             this.quiz.question.isRunning = false;
         }
 
-        onSessionClosed(data) {
+        onSessionClosed() {
             Quiz.hide(Instructor.side);
             Quiz.hide(Instructor.correctAnswer);
             Instructor.enableControls([]);
@@ -695,7 +695,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             this.quiz.question.isRunning = false;
         }
 
-        onVoting(data) {
+        onVoting() {
             if (!this.responses.showResponses) {
                 this.responses.hide();
             }
@@ -704,7 +704,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             this.responses.refreshVotes();
         }
 
-        onStateChange(state) {
+        onStateChange() {
             $('#region-main').find('ul.nav.nav-tabs').css('display', 'none');
             $('#region-main-settings-menu').css('display', 'none');
             $('.region_main_settings_menu_proxy').css('display', 'none');
@@ -776,7 +776,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                         'jazzquiz-question-id': questions[i].jazzquizquestionid
                     });
                     $questionButton.data('test', 1);
-                    $questionButton.on('click', function () {
+                    $questionButton.on('click', function() {
                         const questionId = $(this).data('question-id');
                         const time = $(this).data('time');
                         const jazzQuestionId = $(this).data('jazzquiz-question-id');
@@ -871,6 +871,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
             Quiz.hide(Question.box);
             Quiz.hide(Instructor.controls);
             setText(Quiz.info, 'closing_session');
+            // eslint-disable-next-line no-restricted-globals
             Ajax.post('close_session', {}, () => window.location = location.href.split('&')[0]);
         }
 
@@ -947,7 +948,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
         }
 
         static addReportEventHandlers() {
-            $(document).on('click', '#report_overview_controls button', function () {
+            $(document).on('click', '#report_overview_controls button', function() {
                 const action = $(this).data('action');
                 if (action === 'attendance') {
                     $('#report_overview_responded').fadeIn();
@@ -962,7 +963,7 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
     }
 
     return {
-        initialize: function (totalQuestions, reportView, slots) {
+        initialize: function(totalQuestions, reportView, slots) {
             let quiz = new Quiz(Instructor);
             quiz.role.totalQuestions = totalQuestions;
             if (reportView) {
@@ -978,6 +979,6 @@ define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
                 quiz.poll(500);
             }
         }
-    }
+    };
 
 });
