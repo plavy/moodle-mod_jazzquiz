@@ -129,7 +129,13 @@ class jazzquiz_question_bank_view extends \core_question\local\bank\view {
 
     private function display_add_selected_questions_button() {
         $straddtoquiz = get_string('add_to_quiz', 'jazzquiz');
-        echo '<button class="btn btn-secondary jazzquiz-add-selected-questions">' . $straddtoquiz . '</button>';
+        echo 
+            '<br/>
+            <button class="btn btn-secondary jazzquiz-add-selected-questions">' . $straddtoquiz . '</button>
+            <i class="icon fa fa-question-circle text-info fa-fw " 
+                title="Add selected questions to the quiz" 
+                role="img" aria-label="Add selected questions to the quiz">
+            </i>';
     }
 
     /**
