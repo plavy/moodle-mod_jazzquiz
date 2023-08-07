@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 ### Changed
-- 
+- Submission button for student answer changed from Save to Submit.
 
 ## [1.2.1] - 2023-06-26
 
