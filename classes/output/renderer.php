@@ -158,7 +158,7 @@ class renderer extends \plugin_renderer_base {
 
 
     /**
-     * Shows the "guests not allowed" page when trying to access a 
+     * Shows the "guests not allowed" page when trying to access a
      * quiz which does not allow guests in guest mode.
      * @throws \moodle_exception
      */

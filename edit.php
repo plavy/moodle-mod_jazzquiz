@@ -57,10 +57,13 @@ function jazzquiz_session_open($jazzquizid) {
  * @return string
  * @throws \coding_exception
  */
-function get_qbank_view(\core_question\local\bank\question_edit_contexts $contexts, jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+function get_qbank_view(
+    \core_question\local\bank\question_edit_contexts $contexts,
+    jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+
     $qperpage = optional_param('qperpage', 10, PARAM_INT);
     $qpage = optional_param('qpage', 0, PARAM_INT);
-    $new_pagevars = [
+    $newpagevars = [
         'qpage' => $qpage,
         'qperpage' => $qperpage,
         'cat' => $pagevars['cat'],
@@ -71,7 +74,7 @@ function get_qbank_view(\core_question\local\bank\question_edit_contexts $contex
     // Capture question bank display in buffer to have the renderer render output.
     ob_start();
     $questionbank = new bank\jazzquiz_question_bank_view($contexts, $url, $jazzquiz->course, $jazzquiz->cm);
-    $questionbank->display($new_pagevars, 'editq');
+    $questionbank->display($newpagevars, 'editq');
     return ob_get_clean();
 }
 
@@ -84,7 +87,10 @@ function get_qbank_view(\core_question\local\bank\question_edit_contexts $contex
  * @throws \coding_exception
  * @throws \moodle_exception
  */
-function list_questions(\core_question\local\bank\question_edit_contexts $contexts, jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+function list_questions(
+    \core_question\local\bank\question_edit_contexts $contexts,
+    jazzquiz $jazzquiz, \moodle_url $url, array $pagevars) {
+
     $qbankview = get_qbank_view($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->list_questions($jazzquiz, $jazzquiz->questions, $qbankview, $url);
 }
@@ -133,7 +139,10 @@ function jazzquiz_edit_edit_question(jazzquiz $jazzquiz) {
  * @throws \coding_exception
  * @throws \moodle_exception
  */
-function jazzquiz_edit_qlist(jazzquiz $jazzquiz, \core_question\local\bank\question_edit_contexts $contexts, \moodle_url $url, array $pagevars) {
+function jazzquiz_edit_qlist(
+    jazzquiz $jazzquiz, \core_question\local\bank\question_edit_contexts $contexts,
+    \moodle_url $url, array $pagevars) {
+
     $jazzquiz->renderer->header($jazzquiz, 'edit');
     list_questions($contexts, $jazzquiz, $url, $pagevars);
     $jazzquiz->renderer->footer();
@@ -163,7 +172,7 @@ function jazzquiz_edit() {
         $pagevars) = question_edit_setup('editq', '/mod/jazzquiz/edit.php', true);
 
     $jazzquiz = new jazzquiz($cmid);
-    $renderer = $jazzquiz->renderer; // Todo: Flytt ned til hvor variabelen blir brukt
+    $renderer = $jazzquiz->renderer;
 
     $modulename = get_string('modulename', 'jazzquiz');
     $quizname = format_string($jazzquiz->data->name, true);
@@ -182,7 +191,6 @@ function jazzquiz_edit() {
 
     // Process moving, deleting and unhiding questions...
     $questionbank = new \core_question\local\bank\view($contexts, $url, $COURSE, $cm);
-    
 
     switch ($action) {
         case 'order':

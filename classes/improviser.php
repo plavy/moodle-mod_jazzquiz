@@ -60,10 +60,10 @@ class improviser {
         $questions = [];
         $context = \context_module::instance($this->jazzquiz->cm->id);
         $parts = explode('/', $context->path);
-        debugging( "get_all_improvised: ".$parts ) ;
+        debugging( "get_all_improvised: ".$parts );
         foreach ($parts as $part) {
             // Selecting name first, to prevent duplicate improvise questions.
-            debugging( "get_all_improvised: ".$part ) ;
+            debugging( "get_all_improvised: ".$part );
             $sql = "SELECT q.name,
                            q.id
                       FROM {question} q
@@ -256,7 +256,7 @@ class improviser {
         }
         $question->id = $DB->insert_record('question', $question);
         $qbankentry->id = $DB->insert_record('question_bank_entries', $qbankentry);
-        $this->insert_question_version( $qbankentry->id, $question->id ) ;
+        $this->insert_question_version( $qbankentry->id, $question->id );
         // Add options.
         $options = $this->make_multichoice_options($question->id);
         $DB->insert_record('qtype_multichoice_options', $options);
@@ -269,17 +269,17 @@ class improviser {
     }
 
     /* Create a question version database object, linking the given question
-     * and question bank entry. 
-     * @param int $qbankid The ID of the question banke entry 
-     * @param int $qid The ID of the question 
+     * and question bank entry.
+     * @param int $qbankid The ID of the question banke entry
+     * @param int $qid The ID of the question
      * @return \stdClass
      */
     private function insert_question_version(int $qbankid, int $qid) {
         global $DB;
         $qv = new \stdClass();
-        $qv->questionbankentryid = $qbankid ;
-        $qv->version = 1 ;
-        $qv->questionid = $qid ;
+        $qv->questionbankentryid = $qbankid;
+        $qv->version = 1;
+        $qv->questionid = $qid;
         $qv->id = $DB->insert_record('question_versions', $qv);
         return $qv;
     }
@@ -301,7 +301,7 @@ class improviser {
         }
         $question->id = $DB->insert_record('question', $question);
         $qbankentry->id = $DB->insert_record('question_bank_entries', $qbankentry);
-        $this->insert_question_version( $qbankentry->id, $question->id ) ;
+        $this->insert_question_version( $qbankentry->id, $question->id );
 
         // Add options.
         $options = $this->make_shortanswer_options($question->id);
@@ -324,7 +324,7 @@ class improviser {
         }
         $question->id = $DB->insert_record('question', $question);
         $qbankentry->id = $DB->insert_record('question_bank_entries', $qbankentry);
-        $this->insert_question_version( $qbankentry->id, $question->id ) ;
+        $this->insert_question_version( $qbankentry->id, $question->id );
         // Add options. Important: If shortmath changes options table in the future, this must be changed too.
         $options = $this->make_shortanswer_options($question->id);
         $DB->insert_record('qtype_shortmath_options', $options);
