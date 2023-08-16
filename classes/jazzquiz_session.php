@@ -139,8 +139,7 @@ class jazzquiz_session {
         if (!$user) {
             return '?';
         }
-        $userFirstLastName = $user->lastname . ', ' . $user->firstname;
-        return $userFirstLastName;
+        return $user->lastname . ', ' . $user->firstname;
     }
 
     public function user_name_for_attendance($userid) {
@@ -152,8 +151,7 @@ class jazzquiz_session {
         if (!$user) {
             return '?';
         }
-        $userFirstLastName = $user->lastname . ', ' . $user->firstname;
-        return $userFirstLastName;
+        return $user->lastname . ', ' . $user->firstname;
     }
 
     public function user_idnumber_for_attendance($userid) {

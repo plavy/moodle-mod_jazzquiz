@@ -170,12 +170,12 @@ function jazzquiz_view() {
         header('Location: /');
         exit;
     }
-    
+
     $action = optional_param('action', '', PARAM_ALPHANUM);
     $jazzquiz = new jazzquiz($cmid);
     $session = $jazzquiz->load_open_session();
-    $isCapable = true;
- 
+    $iscapable = true;
+
     /*
      * Checks that the user is authorised for he quiz.
      * access or not.
@@ -194,7 +194,7 @@ function jazzquiz_view() {
             require_capability('mod/jazzquiz:attempt', $jazzquiz->context);
         } catch (Exception $e) {
             // Indicates that the guest user is not allowed to access this session.
-            $isCapable = false;
+            $iscapable = false;
         }
     }
 
@@ -211,7 +211,7 @@ function jazzquiz_view() {
     $url->param('action', $action);
     $PAGE->set_url($url);
 
-    if ($isCapable) {
+    if ($iscapable) {
         if ($jazzquiz->is_instructor()) {
             $improviser = new improviser($jazzquiz);
             $improviser->insert_default_improvised_question_definitions();
@@ -224,8 +224,8 @@ function jazzquiz_view() {
     } else {
         /*
          * Shows "guests_not_allowed" if capability is false and
-         * session doesn't allow for guests to attend. 
-         * 
+         * session doesn't allow for guests to attend.
+         *
          * This is triggered when the session does not allow for guests
          * to attend, and the user trying to attend is a guest.
          */

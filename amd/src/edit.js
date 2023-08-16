@@ -13,15 +13,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
+import Sortable from '../../js/sortable.min.js';
+
 /**
- * @package    mod_jazzquiz
+ * @module     mod_jazzquiz
  * @author     Sebastian S. Gundersen <sebastsg@stud.ntnu.no>
  * @copyright  2015 University of Wisconsin - Madison
  * @copyright  2018 NTNU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery'], function ($) {
+define(['jquery'], function($) {
 
     /**
      * Submit the question order to the server. An empty array will delete all questions.
@@ -41,7 +44,7 @@ define(['jquery'], function ($) {
      */
     function getQuestionOrder() {
         let order = [];
-        $('.questionlist li').each(function () {
+        $('.questionlist li').each(function() {
             order.push($(this).data('question-id'));
         });
         return order;
@@ -69,8 +72,12 @@ define(['jquery'], function ($) {
         return order;
     }
 
+    /**
+     * Add click-listener to a quiz by module id.
+     * @param {number} courseModuleId
+     */
     function listenAddToQuiz(courseModuleId) {
-        $('.jazzquiz-add-selected-questions').on('click', function () {
+        $('.jazzquiz-add-selected-questions').on('click', function() {
             const $checkboxes = $('#categoryquestions td input[type=checkbox]:checked');
             let questionIds = '';
             for (const checkbox of $checkboxes) {
@@ -86,26 +93,30 @@ define(['jquery'], function ($) {
 
     return {
         initialize: courseModuleId => {
-            $('.edit-question-action').on('click', function () {
+            $('.edit-question-action').on('click', function() {
                 const action = $(this).data('action');
                 const questionId = $(this).data('question-id');
                 let order = [];
                 switch (action) {
-                    case 'up':
+                    case 'up': {
                         order = offsetQuestion(questionId, 1);
                         break;
-                    case 'down':
+                    }
+                    case 'down': {
                         order = offsetQuestion(questionId, -1);
                         break;
-                    case 'delete':
+                    }
+                    case 'delete': {
                         order = getQuestionOrder();
                         const index = order.indexOf(questionId);
                         if (index !== -1) {
                             order.splice(index, 1);
                         }
                         break;
-                    default:
+                    }
+                    default: {
                         return;
+                    }
                 }
                 submitQuestionOrder(order, courseModuleId);
             });

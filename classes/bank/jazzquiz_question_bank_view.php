@@ -120,7 +120,7 @@ class jazzquiz_question_bank_view extends \core_question\local\bank\view {
             $cat,
             null,
             $page,
-            $perpage,   
+            $perpage,
             $this->contexts->having_cap('moodle/question:add')
         );
         $this->display_add_selected_questions_button();
