@@ -30,5 +30,5 @@ $plugin->requires = 2022041900; // Moodle 4.0 (or above).
 $plugin->cron = 0; // Period in seconds for cron to run.
 $plugin->component = 'mod_jazzquiz';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.2.0 (Build: 2023033100)';
+$plugin->release = '1.2.1 (Build: 2023033105)';
 
