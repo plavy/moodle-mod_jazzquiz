@@ -6,8 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
-### Changed
-- 
+
+## [1.2.1] - 2023-08-21
+
+- Changed submission button for student answer changed from Save to Submit.
+- Fixed various codestyle issues.
+- Added column in qbank view for displaying question text/media
+- Swapped the order of firstname and lastname in csv export of attendance list
+- Improvement of guest user feedback upon trying to attend a quiz which doesn't allow guests to attend
+- Added new template for "guests_not_allowed" feedback
 
 ## [1.2.0] - 2023-03-31
 

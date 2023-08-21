@@ -153,11 +153,20 @@ class exporter {
         $name = $session->data->id . '_' . $session->data->name;
         $attendances = $session->get_attendances();
         $this->csv_file("session_{$name}_attendance");
-        echo "Student\tResponses\r\n";
+        echo "IdNumber\tFirst Name\tLast Name\tResponses\r\n";
         foreach ($attendances as $attendance) {
-            $name = $attendance['name'];
+            $idnumber = $attendance['idnumber'];
+            $userfirstlastname = explode(', ', $attendance['name']);
+            if (count($userfirstlastname) >= 2) {
+                $lastname = $userfirstlastname[1];
+                $firstname = $userfirstlastname[0];
+            } else {
+                $lastname = $userfirstlastname[0];
+                // For anonymous, but it doesn't even make sense since if it's anon, no name should display.
+                $firstname = $userfirstlastname[0];
+            }
             $count = $attendance['count'];
-            echo "$name\t$count\r\n";
+            echo "$idnumber\t$lastname\t$firstname\t$count\r\n";
         }
     }
 

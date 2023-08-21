@@ -156,6 +156,18 @@ class renderer extends \plugin_renderer_base {
         ]);
     }
 
+
+    /**
+     * Shows the "guests not allowed" page when trying to access a
+     * quiz which does not allow guests in guest mode.
+     * @throws \moodle_exception
+     */
+    public function guests_not_allowed() {
+        echo $this->render_from_template('jazzquiz/guests_not_allowed', []);
+    }
+
+
+
     /**
      * Renders the quiz to the page
      * @param jazzquiz_session $session
@@ -373,7 +385,20 @@ class renderer extends \plugin_renderer_base {
      */
     public function require_quiz(jazzquiz_session $session) {
         $this->require_core($session);
-        $this->page->requires->js('/question/qengine.js');
+
+        // question/qengine.js is deprecated for Moodle versions after 401.
+        // Checks moodle version in order to determine which question engine
+        // to use, making the jazzquiz independent of the Moodle version.
+        global $CFG;
+        include $CFG->dirroot.'/version.php';
+        $branch = $CFG->branch;
+
+        if ( (int) $branch <= 401 ) {
+            $this->page->requires->js('/question/qengine.js');
+        } else {
+            $this->page->requires->js_call_amd('core_question/question_engine', 'initialize');
+        }
+        
         if ($session->jazzquiz->is_instructor()) {
             $count = count($session->jazzquiz->questions);
             $params = [$count, false, []];

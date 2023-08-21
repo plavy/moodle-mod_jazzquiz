@@ -1,3 +1,6 @@
+{{!
+    @template question
+}}
 <div class="jazzquiz-box {{# instructor }}instructor{{/ instructor }}">
     <form id="jazzquiz_question_form" action="" method="post" enctype="multipart/form-data" accept-charset="utf8" onsubmit="return false;">
         <div class="jazzquiz-response-container">{{{ question }}}</div>
@@ -5,7 +8,7 @@
         {{^ instructor }}
         <div class="save_row">
             <div class="jazzquiz-save-question">
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary">Submit</button>
             </div>
         </div>
         {{/ instructor }}
