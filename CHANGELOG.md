@@ -7,22 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [1.2.1] - 2023-08-21
+
 - Changed submission button for student answer changed from Save to Submit.
 - Fixed various codestyle issues.
-
-### Fi
-
-## [1.2.2] - 2023-07-28
-
 - Added column in qbank view for displaying question text/media
-
-## [1.2.1] - 2023-06-26
-
 - Swapped the order of firstname and lastname in csv export of attendance list
-
-
-## [1.2.1] - 2023-06-08
-
 - Improvement of guest user feedback upon trying to attend a quiz which doesn't allow guests to attend
 - Added new template for "guests_not_allowed" feedback
 
