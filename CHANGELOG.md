@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Fixed
+- Added HTML sanitization for shortanswer
+
 ## [1.2.1] - 2023-08-21
 
 - Changed submission button for student answer changed from Save to Submit.
