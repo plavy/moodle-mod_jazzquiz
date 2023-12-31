@@ -21,12 +21,24 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
+define(['jquery', 'mod_jazzquiz/core'], function ($, Jazz) {
 
     const Quiz = Jazz.Quiz;
     const Question = Jazz.Question;
     const Ajax = Jazz.Ajax;
     const setText = Jazz.setText;
+
+    /**
+     * Sanitize and encode all HTML in a user-submitted string
+     * https://portswigger.net/web-security/cross-site-scripting/preventing
+     * @param  {String} str  The user-submitted string
+     * @return {String} str  The sanitized string
+     */
+    var sanitizeHTML = function (str) {
+        return str.replace(/[^\w. ]/gi, function (c) {
+            return '&#' + c.charCodeAt(0) + ';';
+        });
+    };
 
     class ResponseView {
 
@@ -118,7 +130,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
          * @param {string} into
          */
         merge(from, into) {
-            Ajax.post('merge_responses', {from: from, into: into}, () => this.refresh(false));
+            Ajax.post('merge_responses', { from: from, into: into }, () => this.refresh(false));
         }
 
         /**
@@ -140,7 +152,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             }
             $row.addClass('merge-from');
             let $table = $row.parent().parent();
-            $table.find('tr').each(function() {
+            $table.find('tr').each(function () {
                 const $cells = $(this).find('td');
                 if ($cells[1].id !== $barCell.attr('id')) {
                     $(this).addClass('merge-into');
@@ -201,7 +213,6 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
                 if (count > highestResponseCount) {
                     highestResponseCount = count;
                 }
-
             }
             if (total === 0) {
                 total = 1;
@@ -234,7 +245,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             // Add rows.
             for (let i = 0; i < responses.length; i++) {
                 // Const percent = (parseInt(responses[i].count) / total) * 100;
-                const percent = (parseInt(responses[i].count) / highestResponseCount) * 100;
+                const percent = parseInt(responses[i].count) / highestResponseCount * 100;
 
                 // Check if row with same response already exists.
                 let rowIndex = -1;
@@ -262,7 +273,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
 
                     const countHtml = '<span id="' + name + '_count_' + rowIndex + '">' + responses[i].count + '</span>';
                     let responseCell = row.insertCell(0);
-                    responseCell.onclick = function() {
+                    responseCell.onclick = function () {
                         $(this).parent().toggleClass('selected-vote-option');
                     };
 
@@ -313,7 +324,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             let isSorting = true;
             while (isSorting) {
                 isSorting = false;
-                for (let i = 0; i < (target.rows.length - 1); i++) {
+                for (let i = 0; i < target.rows.length - 1; i++) {
                     const current = parseInt(target.rows[i].dataset.percent);
                     const next = parseInt(target.rows[i + 1].dataset.percent);
                     if (current < next) {
@@ -354,7 +365,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             switch (questionType) {
                 case 'shortanswer':
                     for (let i = 0; i < responses.length; i++) {
-                        responses[i].response = responses[i].response.trim();
+                        responses[i].response = sanitizeHTML(responses[i].response).trim();
                     }
                     break;
                 case 'stack':
@@ -428,8 +439,8 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
                 this.quiz.question.hasVotes = data.has_votes;
                 this.totalStudents = parseInt(data.total_students);
 
-                this.set('jazzquiz_responses_container', 'current_responses_wrapper',
-                    data.responses, data.responded, data.question_type, 'results', rebuild);
+                // eslint-disable-next-line max-len
+                this.set('jazzquiz_responses_container', 'current_responses_wrapper', data.responses, data.responded, data.question_type, 'results', rebuild);
 
                 if (data.merge_count > 0) {
                     Quiz.show($('#jazzquiz_undo_merge'));
@@ -500,7 +511,8 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             this.allowVote = false;
 
             $(document).on('keyup', event => {
-                if (event.keyCode === 27) { // Escape key.
+                if (event.keyCode === 27) {
+                    // Escape key.
                     Instructor.closeFullscreenView();
                 }
             });
@@ -776,7 +788,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
                         'jazzquiz-question-id': questions[i].jazzquizquestionid
                     });
                     $questionButton.data('test', 1);
-                    $questionButton.on('click', function() {
+                    $questionButton.on('click', function () {
                         const questionId = $(this).data('question-id');
                         const time = $(this).data('time');
                         const jazzQuestionId = $(this).data('jazzquiz-question-id');
@@ -809,9 +821,9 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
          */
         runVoting() {
             const options = Instructor.getSelectedAnswersForVote();
-            const data = {questions: encodeURIComponent(JSON.stringify(options))};
+            const data = { questions: encodeURIComponent(JSON.stringify(options)) };
             // eslint-disable-next-line no-return-assign
-            Ajax.post('run_voting', data, () => {});
+            Ajax.post('run_voting', data, () => { });
         }
 
         /**
@@ -907,7 +919,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
         static enableControls(buttons) {
             Instructor.controlButtons.children('button').each((index, child) => {
                 const id = child.getAttribute('id').replace('jazzquiz_control_', '');
-                child.disabled = (buttons.indexOf(id) === -1);
+                child.disabled = buttons.indexOf(id) === -1;
             });
         }
 
@@ -949,7 +961,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
         }
 
         static addReportEventHandlers() {
-            $(document).on('click', '#report_overview_controls button', function() {
+            $(document).on('click', '#report_overview_controls button', function () {
                 const action = $(this).data('action');
                 if (action === 'attendance') {
                     $('#report_overview_responded').fadeIn();
@@ -964,7 +976,7 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
     }
 
     return {
-        initialize: function(totalQuestions, reportView, slots) {
+        initialize: function (totalQuestions, reportView, slots) {
             let quiz = new Quiz(Instructor);
             quiz.role.totalQuestions = totalQuestions;
             if (reportView) {
@@ -981,5 +993,4 @@ define(['jquery', 'mod_jazzquiz/core'], function($, Jazz) {
             }
         }
     };
-
 });
